@@ -50,9 +50,9 @@ const render = (data) => yo `
 				${clip(100, 100, data, 'seconds')}
 			</clipPath>
 		</defs>
-		<circle class="weeks"   cx="50" cy="50" r="10" clip-path="url(#weeks)"/>
-		<circle class="hours"   cx="50" cy="50" r="20" clip-path="url(#hours)"/>
-		<circle class="minutes" cx="50" cy="50" r="30" clip-path="url(#minutes)"/>
+		<circle class="weeks"   cx="50" cy="50" r="19" clip-path="url(#weeks)"/>
+		<circle class="hours"   cx="50" cy="50" r="26" clip-path="url(#hours)"/>
+		<circle class="minutes" cx="50" cy="50" r="33" clip-path="url(#minutes)"/>
 		<circle class="seconds" cx="50" cy="50" r="40" clip-path="url(#seconds)"/>
 	</svg>`
 
