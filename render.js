@@ -34,6 +34,9 @@ const clip = (w, h, data, unit) => {
 const render = (data) => yo `
 	<svg id="clock" viewBox="0 0 100 100">
 		<defs>
+			<clipPath id="weeks">
+				${clip(100, 100, data, 'weeks')}
+			</clipPath>
 			<clipPath id="hours">
 				${clip(100, 100, data, 'hours')}
 			</clipPath>
@@ -44,6 +47,7 @@ const render = (data) => yo `
 				${clip(100, 100, data, 'seconds')}
 			</clipPath>
 		</defs>
+		<circle class="weeks"   cx="50" cy="50" r="10" clip-path="url(#weeks)"/>
 		<circle class="hours"   cx="50" cy="50" r="20" clip-path="url(#hours)"/>
 		<circle class="minutes" cx="50" cy="50" r="30" clip-path="url(#minutes)"/>
 		<circle class="seconds" cx="50" cy="50" r="40" clip-path="url(#seconds)"/>

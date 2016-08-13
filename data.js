@@ -10,11 +10,13 @@ const second = 1000
 const minute = 60 * second
 const hour = 60 * minute
 const day = 24 * hour
+const week = 7 * day
 
 const data = () => {
 	const now = new Date()
 	return {
-		  hours:   (now - floor(now, 'day')) / day
+		  weeks:   (now - floor(now, 'week')) / week
+		, hours:   (now - floor(now, 'day')) / day
 		, minutes: (now - floor(now, 'hour')) / hour
 		, seconds: (now - floor(now, 'minute')) / minute
 	}
