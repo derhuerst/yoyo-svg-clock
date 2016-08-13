@@ -6,6 +6,21 @@
 	<meta name="author" content="Jannis R <mail@jannisr.de>"/>
 	<meta name="viewport" content="width=device-width"/>
 </head><body>
+	<style>
+		body {
+			margin: 0; padding: 0;
+			display: flex; justify-content: center;
+			background-color: black;
+		}
+		#clock { max-height: 100vh; }
+		#clock circle {
+			fill: none;
+			stroke-width: 2;
+		}
+		#clock .hours { stroke: #3c68bf; }
+		#clock .minutes { stroke: #335aa4; }
+		#clock .seconds { stroke: #28457c; }
+	</style>
 	<script type="application/javascript" src="bundle.js"></script>
 	<!-- the clock will be here -->
 </body>
