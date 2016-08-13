@@ -10,17 +10,18 @@
 		body {
 			margin: 0; padding: 0;
 			display: flex; justify-content: center;
-			background-color: black;
+			background-color: #444;
 		}
 		#clock { max-height: 100vh; }
 		#clock circle {
-			fill: none;
-			stroke-width: 2;
+			fill: none; stroke-width: 5;
+			opacity: .8;
 		}
-		#clock .weeks { stroke: #406cc3; }
-		#clock .hours { stroke: #3c68bf; }
-		#clock .minutes { stroke: #335aa4; }
-		#clock .seconds { stroke: #28457c; }
+		#clock circle:hover { opacity: 1; }
+		#clock .weeks { stroke: #D05931; }
+		#clock .hours { stroke: #3E8FE9; }
+		#clock .minutes { stroke: #2AB256; }
+		#clock .seconds { stroke: #F8DD3D; }
 	</style>
 	<script type="application/javascript" src="bundle.js"></script>
 	<!-- the clock will be here -->
