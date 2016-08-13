@@ -10,6 +10,7 @@
 	"license":     "ISC",
 	"devDependencies": {
 		"yo-yo": "^1.2.2",
+		"floordate": "^2",
 		"browserify": "^13.1"
 	},
 	"scripts": {
