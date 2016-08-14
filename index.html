@@ -12,7 +12,10 @@
 			display: flex; justify-content: center;
 			background-color: #444;
 		}
-		#clock { max-height: 100vh; }
+		#clock {
+			height: 100vh; /* fix chrome :( */
+			max-height: 100vh;
+		}
 		#clock circle {
 			fill: none; stroke-width: 5;
 			opacity: .8;
