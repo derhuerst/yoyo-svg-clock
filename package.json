@@ -11,9 +11,12 @@
 	"devDependencies": {
 		"yo-yo": "^1.2.2",
 		"floordate": "^2",
-		"browserify": "^13.1"
+		"browserify": "^13.1",
+		"uglify-js": "mishoo/UglifyJS2#harmony"
 	},
 	"scripts": {
-		"build": "browserify index.js -o bundle.js"
+		"bundle": "browserify index.js -o dist/bundle.js",
+		"minify": "uglifyjs -mc --screw-ie8 -o dist/bundle.min.js -- dist/bundle.js",
+		"build": "npm run bundle && npm run minify"
 	}
 }
