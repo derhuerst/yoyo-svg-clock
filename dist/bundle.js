@@ -1,48 +1,46 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict'
+'use strict';
 
-const floordate = require('floordate')
+var floordate = require('floordate');
 
+var floor = function (when, unit) {
+	return floordate(new Date(when), unit);
+};
 
+var second = 1000;
+var minute = 60 * second;
+var hour = 60 * minute;
+var day = 24 * hour;
+var week = 7 * day;
 
-const floor = (when, unit) => floordate(new Date(when), unit)
-
-const second = 1000
-const minute = 60 * second
-const hour = 60 * minute
-const day = 24 * hour
-const week = 7 * day
-
-const data = () => {
-	const now = new Date()
+var data = function () {
+	var now = new Date();
 	return {
-		  weeks:   (now - floor(now, 'week')) / week
-		, hours:   (now - floor(now, 'day')) / day
-		, minutes: (now - floor(now, 'hour')) / hour
-		, seconds: (now - floor(now, 'minute')) / minute
-	}
-}
+		weeks: (now - floor(now, 'week')) / week,
+		hours: (now - floor(now, 'day')) / day,
+		minutes: (now - floor(now, 'hour')) / hour,
+		seconds: (now - floor(now, 'minute')) / minute
+	};
+};
 
-module.exports = data
-
+module.exports = data;
 },{"floordate":5}],2:[function(require,module,exports){
-'use strict'
+'use strict';
 
-const yo = require('yo-yo')
+var yo = require('yo-yo');
 
-const data = require('./data')
-const render = require('./render')
+var data = require('./data');
+var render = require('./render');
 
-const dom = render(data())
-document.body.appendChild(dom)
+var dom = render(data());
+document.body.appendChild(dom);
 
-let play = true
-const loop = () => {
-	yo.update(dom, render(data()))
-	if (play) requestAnimationFrame(loop)
-}
-requestAnimationFrame(loop)
-
+var play = true;
+var loop = function () {
+	yo.update(dom, render(data()));
+	if (play) requestAnimationFrame(loop);
+};
+requestAnimationFrame(loop);
 },{"./data":1,"./render":15,"yo-yo":13}],3:[function(require,module,exports){
 var document = require('global/document')
 var hyperx = require('hyperx')
@@ -1378,64 +1376,44 @@ module.exports = [
 ]
 
 },{}],15:[function(require,module,exports){
-'use strict'
+'use strict';
 
-const yo = require('yo-yo')
+var _templateObject = _taggedTemplateLiteral(['\n\t\t<polygon points="', '"/>'], ['\n\t\t<polygon points="', '"/>']),
+    _templateObject2 = _taggedTemplateLiteral(['\n\t<svg id="clock" viewBox="0 0 100 100">\n\t\t<defs>\n\t\t\t<clipPath id="weeks">\n\t\t\t\t', '\n\t\t\t</clipPath>\n\t\t\t<clipPath id="hours">\n\t\t\t\t', '\n\t\t\t</clipPath>\n\t\t\t<clipPath id="minutes">\n\t\t\t\t', '\n\t\t\t</clipPath>\n\t\t\t<clipPath id="seconds">\n\t\t\t\t', '\n\t\t\t</clipPath>\n\t\t</defs>\n\t\t<circle class="weeks"   cx="50" cy="50" r="19" clip-path="url(#weeks)"/>\n\t\t<circle class="hours"   cx="50" cy="50" r="26" clip-path="url(#hours)"/>\n\t\t<circle class="minutes" cx="50" cy="50" r="33" clip-path="url(#minutes)"/>\n\t\t<circle class="seconds" cx="50" cy="50" r="40" clip-path="url(#seconds)"/>\n\t</svg>'], ['\n\t<svg id="clock" viewBox="0 0 100 100">\n\t\t<defs>\n\t\t\t<clipPath id="weeks">\n\t\t\t\t', '\n\t\t\t</clipPath>\n\t\t\t<clipPath id="hours">\n\t\t\t\t', '\n\t\t\t</clipPath>\n\t\t\t<clipPath id="minutes">\n\t\t\t\t', '\n\t\t\t</clipPath>\n\t\t\t<clipPath id="seconds">\n\t\t\t\t', '\n\t\t\t</clipPath>\n\t\t</defs>\n\t\t<circle class="weeks"   cx="50" cy="50" r="19" clip-path="url(#weeks)"/>\n\t\t<circle class="hours"   cx="50" cy="50" r="26" clip-path="url(#hours)"/>\n\t\t<circle class="minutes" cx="50" cy="50" r="33" clip-path="url(#minutes)"/>\n\t\t<circle class="seconds" cx="50" cy="50" r="40" clip-path="url(#seconds)"/>\n\t</svg>']);
 
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+var yo = require('yo-yo');
 
-const round = (x) => Math.round(x * 100) / 100
+var round = function (x) {
+	return Math.round(x * 100) / 100;
+};
 
-const clip = (w, h, data, unit) => {
-	data = data[unit]
-	const points = [[w/2, h/2]] // start at the center
+var clip = function (w, h, data, unit) {
+	data = data[unit];
+	var points = [[w / 2, h / 2]]; // start at the center
 
 	// add helper edges to fully contain the clock
-	                 points.push([w/2, 0  ]) // middle top
-	if (data >= 1/8) points.push([w  , 0  ]) // right  top
-	if (data >= 2/8) points.push([w  , h/2]) // right  middle
-	if (data >= 3/8) points.push([w  , h  ]) // right  bottom
-	if (data >= 4/8) points.push([w/2, h  ]) // middle bottom
-	if (data >= 5/8) points.push([0  , h  ]) // left   bottom
-	if (data >= 6/8) points.push([0  , h/2]) // left   middle
-	if (data >= 7/8) points.push([0  , 0  ]) // left   top
+	points.push([w / 2, 0]); // middle top
+	if (data >= 1 / 8) points.push([w, 0]); // right  top
+	if (data >= 2 / 8) points.push([w, h / 2]); // right  middle
+	if (data >= 3 / 8) points.push([w, h]); // right  bottom
+	if (data >= 4 / 8) points.push([w / 2, h]); // middle bottom
+	if (data >= 5 / 8) points.push([0, h]); // left   bottom
+	if (data >= 6 / 8) points.push([0, h / 2]); // left   middle
+	if (data >= 7 / 8) points.push([0, 0]); // left   top
 
 	// add the actual edge to cut the ring off
-	points.push([
-		w/2 + Math.cos(Math.PI * 2 * (data - .25)) * w/2,
-		h/2 + Math.sin(Math.PI * 2 * (data - .25)) * h/2
-	])
+	points.push([w / 2 + Math.cos(Math.PI * 2 * (data - .25)) * w / 2, h / 2 + Math.sin(Math.PI * 2 * (data - .25)) * h / 2]);
 
-	return yo `
-		<polygon points="${points
-			.map((p) => round(p[0]) + ',' + round(p[1]))
-			.join(' ')}"/>`
-}
+	return yo(_templateObject, points.map(function (p) {
+		return round(p[0]) + ',' + round(p[1]);
+	}).join(' '));
+};
 
+var render = function (data) {
+	return yo(_templateObject2, clip(100, 100, data, 'weeks'), clip(100, 100, data, 'hours'), clip(100, 100, data, 'minutes'), clip(100, 100, data, 'seconds'));
+};
 
-
-const render = (data) => yo `
-	<svg id="clock" viewBox="0 0 100 100">
-		<defs>
-			<clipPath id="weeks">
-				${clip(100, 100, data, 'weeks')}
-			</clipPath>
-			<clipPath id="hours">
-				${clip(100, 100, data, 'hours')}
-			</clipPath>
-			<clipPath id="minutes">
-				${clip(100, 100, data, 'minutes')}
-			</clipPath>
-			<clipPath id="seconds">
-				${clip(100, 100, data, 'seconds')}
-			</clipPath>
-		</defs>
-		<circle class="weeks"   cx="50" cy="50" r="19" clip-path="url(#weeks)"/>
-		<circle class="hours"   cx="50" cy="50" r="26" clip-path="url(#hours)"/>
-		<circle class="minutes" cx="50" cy="50" r="33" clip-path="url(#minutes)"/>
-		<circle class="seconds" cx="50" cy="50" r="40" clip-path="url(#seconds)"/>
-	</svg>`
-
-module.exports = render
-
+module.exports = render;
 },{"yo-yo":13}]},{},[2]);
